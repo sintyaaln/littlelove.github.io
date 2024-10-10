@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Love</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        header {
+            background: #ffcccb; /* Soft pink color */
+            color: #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #000000;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: #ffcccb; /* Soft pink color */
+            padding: 10px;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            min-width: 150px;
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown a {
+            padding: 5px 10px;
+            color: #333;
+        }
+
+        .dropdown a:hover {
+            background: #ff9999; /* Slightly darker pink for hover */
+        }
+
+        #hero {
+            background: #f4f4f4;
+            padding: 60px 20px; /* Adjust for fixed header */
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        #photo-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #photo-section img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .intro {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: justify;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+
+        .product p {
+            margin: 5px 0 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #ffcccb; /* Soft pink color */
+            color: #333;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+
+        #contact {
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        #contact form, #counseling-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        #contact input, #contact textarea, #counseling-form input, #counseling-form select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #contact button, #counseling-form button {
+            background: #ff9999; /* Slightly darker pink */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            margin-top: 20px;
+            background: #25D366;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        /* Baby Growth & Development Styles */
+        .development-stages {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .development-stages .stage {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            width: 30%;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .development-stages .stage h3 {
+            margin-bottom: 10px;
+        }
+
+        .development-stages .stage p {
+            margin-bottom: 10px;
+        }
+
+        .development-stages .stage a {
+            background: #ff9999; /* Slightly darker pink */
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .development-stages .stage a:hover {
+            background: #ff6666; /* Even darker pink for hover */
+        }
+
+        @media (max-width: 768px) {
+            .development-stages .stage {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>Little Love</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li>
+                    <a href="#services">Our Services</a>
+                    <div class="dropdown">
+                        <a href="#counseling">Counseling</a>
+                        <a href="#baby-equipment">Baby Equipment</a>
+                        <a href="#parenting-classes">Parenting Classes</a>
+                        <a href="#baby-growth-development">Baby Growth & Development</a>
+                    </div>
+                </li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="hero" style="background-color: #add8e6; padding: 20px;">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="Logo1.png" alt="Little Love Logo" style="width: 100px; height: auto; margin-right: 20px;">
+                <div>
+                    <h1>Welcome New Parent!!!</h1>
+                    <p>Support service for new parents</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="photo-section">
+            <img src="header.webp" alt="Family with a baby" />
+        </div>
+
+        <div class="intro">
+            <p>Welcome to Little Love! At Little Love, we understand that welcoming a new baby into your life is both a joyous and overwhelming experience. Our mission is to support new parents on this incredible journey by providing the knowledge, resources, and emotional guidance they need to feel confident and prepared.</p>
+            
+            <p>We believe that being mentally prepared and informed is key to enjoying every precious moment with your little one. Our platform offers a wealth of articles, expert advice, and practical tips on everything from infant care to nurturing your mental well-being.</p>
+            
+            <p>Whether you're a first-time parent or adding to your family, Little Love is here to help you navigate the challenges and celebrate the joys of parenthood. Together, let’s create a nurturing environment for you and your baby, filled with love, support, and understanding.</p>
+            
+            <p>Join our community and embark on this beautiful adventure with Little Love!</p>
+        </div>
+
+        <section id="parenting-classes">
+            <h2>Parenting Classes</h2>
+            <div id="video-section" style="text-align:center;">
+                <div style="text-align:center;">
+                    <iframe width="80%" height="400px" src="https://www.youtube.com/embed/WQuX_Yw3yIg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p style="margin-top: 10px;">Watch our introductory parenting class video to get started!</p>
+            </div>
+
+            <div id="class-schedule" style="max-width: 800px; margin: 20px auto; text-align: center;">
+                <h3>Upcoming Class Schedule</h3>
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="background-color: #ff9999; color: white;">
+                            <th style="padding: 10px;">Date</th>
+                            <th style="padding: 10px;">Time</th>
+                            <th style="padding: 10px;">Topic</th>
+                            <th style="padding: 10px;">Instructor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">October 15, 2024</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">10:00 AM - 12:00 PM</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">Caring for Newborns</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">Dr. Sarah Johnson</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">October 22, 2024</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">2:00 PM - 4:00 PM</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">Postpartum Mental Health</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">Dr. Emily Collins</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">October 29, 2024</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">9:00 AM - 11:00 AM</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">Infant Sleep Solutions</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ccc;">Dr. Michael Lee</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="https://forms.gle/12UbXxYHgyzNnEhU9" class="register-button" target="_blank" style="margin-top: 20px; display: inline-block;">Register Now</a>
+            </div>
+        </section>
+
+        <section id="baby-equipment">
+            <h2>Baby Equipment</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <img src="baby carrier.jpg" alt="Baby Carrier" />
+                    <h3>Baby Carrier</h3>
+                    <p>Price: $25.00</p>
+                    <button class="buy-now" onclick="addToCart('Baby Carrier', 25.00)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="stroller.jpg" alt="Stroller" />
+                    <h3>Stroller</h3>
+                    <p>Price: $62.50</p>
+                    <button class="buy-now" onclick="addToCart('Stroller', 62.50)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="diaper bag.jpg" alt="Diaper Bag" />
+                    <h3>Diaper Bag</h3>
+                    <p>Price: $81.25</p>
+                    <button class="buy-now" onclick="addToCart('Diaper Bag', 81.25)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="portable nebulizer.jpg" alt="Portable Nebulizer" />
+                    <h3>Portable Nebulizer</h3>
+                    <p>Price: $31.25</p>
+                    <button class="buy-now" onclick="addToCart('Portable Nebulizer', 31.25)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="baby clothes.jpg" alt="Baby Clothes" />
+                    <h3>Baby Clothes</h3>
+                    <p>Price: $35.00</p>
+                    <button class="buy-now" onclick="addToCart('Baby Clothes', 35.00)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="baby pacifier.jpg" alt="Baby Pacifier" />
+                    <h3>Baby Pacifier</h3>
+                    <p>Price: $18.75</p>
+                    <button class="buy-now" onclick="addToCart('Baby Pacifier', 18.75)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="silicone bib.jpg" alt="Silicone Bib" />
+                    <h3>Silicone Bib</h3>
+                    <p>Price: $10.93</p>
+                    <button class="buy-now" onclick="addToCart('Silicone Bib', 10.93)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="dining set.jpg" alt="Dining Set" />
+                    <h3>Dining Set</h3>
+                    <p>Price: $9.37</p>
+                    <button class="buy-now" onclick="addToCart('Dining Set', 9.37)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="Bumbo Multi Seat.jpg" alt="Bumbo Multi Seat" />
+                    <h3>Bumbo Multi Seat</h3>
+                    <p>Price: $90.00</p>
+                    <button class="buy-now" onclick="addToCart('Bumbo Multi Seat', 90.00)">Buy Now</button>
+                </div>
+                <div class="product">
+                    <img src="sock.jpg" alt="Sock Set" />
+                    <h3>Sock Set</h3>
+                    <p>Price: $7.95</p>
+                    <button class="buy-now" onclick="addToCart('Sock Set', 7.95)">Buy Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="baby-growth-development">
+            <h2>Baby Growth & Development</h2>
+            <p>Track your baby's growth milestones and learn more about their physical and emotional development.</p>
+        
+            <div class="development-stages">
+                <div class="stage">
+                    <h3>0-3 Months</h3>
+                    <p>During the first three months, your baby will begin to recognize faces and track movement with their eyes.</p>
+                    <br>
+                    <a href="https://pathways.org/growth-development/0-3-months/milestones/" target="_blank">Read more about 0-3 months development</a>
+                </div>
+                <div class="stage">
+                    <h3>4-6 Months</h3>
+                    <p>By this stage, your baby may begin to roll over and start sitting with support.</p>
+                    <br>
+                    <a href="https://pathways.org/growth-development/4-6-months/milestones/" target="_blank">Read more about 4-6 months development</a>
+                </div>
+                <div class="stage">
+                    <h3>7-12 Months</h3>
+                    <p>Your baby may begin to crawl and even start pulling themselves up to stand!</p>
+                    <br>
+                    <a href="https://www.heromea.com/baby/en/development-milestones-7-12-months-age" target="_blank">Read more about 7-12 months development</a>
+                </div>
+            </div>
+            
+            <style>
+                .development-stages {
+                    display: flex; /* Use flexbox to arrange items in a row */
+                    justify-content: space-between; /* Space items evenly */
+                    flex-wrap: nowrap; /* Prevent wrapping to the next line */
+                    max-width: 100%; /* Ensure it fits within the container */
+                    overflow-x: auto; /* Allow horizontal scrolling if necessary */
+                }
+            
+                .development-stages .stage {
+                    flex: 1; /* Allow each stage to take equal space */
+                    margin: 10px; /* Add some margin for spacing */
+                    border: 1px solid #ccc; /* Optional: add border for styling */
+                    border-radius: 5px; /* Optional: round corners */
+                    padding: 15px; /* Optional: add padding */
+                    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Optional: add shadow */
+                    background: #fff; /* Optional: background color */
+                }
+            </style>
+        </section>
+
+        <section id="counseling">
+            <h2>Book Your Counseling Session</h2>
+            <p>Our expert counselors are here to support you. Schedule a session today!</p>
+            <form id="counseling-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="date" placeholder="Preferred Date" required>
+                <select required>
+                    <option value="" disabled selected>Select Time</option>
+                    <option value="9am">9:00 AM</option>
+                    <option value="11am">11:00 AM</option>
+                    <option value="2pm">2:00 PM</option>
+                    <option value="4pm">4:00 PM</option>
+                </select>
+                <textarea placeholder="Your Message (optional)" rows="4"></textarea>
+                <button type="submit">Book Now</button>
+                <p></p>
+            </form>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="4" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <a href="https://wa.me/6285260445510" class="whatsapp-link" target="_blank">Chat with us on WhatsApp</a>
+            </div>
+        </section>
+        
+        <style>
+            #contact {
+                text-align: center; /* Center text */
+                padding: 20px; /* Add padding around the section */
+                background-color: #add8e6; /* Light blue background */
+            }
+        
+            .contact-container {
+                display: flex; /* Use flexbox for alignment */
+                flex-direction: column; /* Stack items vertically */
+                align-items: center; /* Center items horizontally */
+                margin: 0 auto; /* Center the container */
+                max-width: 400px; /* Set a max width for the form */
+            }
+        
+            form {
+                width: 100%; /* Make form take full width of container */
+            }
+        
+            input, textarea {
+                width: 100%; /* Make inputs and textarea full width */
+                margin-bottom: 10px; /* Space between fields */
+                padding: 10px; /* Padding for inputs */
+                border: 1px solid #ccc; /* Border styling */
+                border-radius: 5px; /* Rounded corners */
+            }
+        
+            button {
+                background: #ff9999; /* Button background color */
+                color: #fff; /* Button text color */
+                padding: 10px; /* Button padding */
+                border: none; /* Remove border */
+                border-radius: 5px; /* Rounded corners */
+                cursor: pointer; /* Pointer cursor on hover */
+                width: 100%; /* Make button full width */
+            }
+        
+            .whatsapp-link {
+                margin-top: 20px; /* Space above the WhatsApp link */
+                color: #f8faf9; /* WhatsApp link color */
+                text-decoration: none; /* Remove underline */
+            
+            }
+        </style>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Little Love. All rights reserved.</p>
+        <p>Follow us on social media!</p>
+        <p>
+            <a href="#" style="color: #fff; text-decoration: none;">Facebook</a> | 
+            <a href="#" style="color: #fff; text-decoration: none;">Instagram</a> | 
+            <a href="#" style="color: #fff; text-decoration: none;">Twitter</a>
+        </p>
+    </footer>
+
+    <script>
+        function addToCart(productName, price) {
+            alert(`${productName} has been added to your cart for $${price.toFixed(2)}.`);
+        }
+
+        document.getElementById('contact-form').onsubmit = function(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        };
+
+        document.getElementById('counseling-form').onsubmit = function(event) {
+            event.preventDefault();
+            alert('Your counseling session has been booked!');
+            this.reset();
+        };
+    </script>
+</body>
+</html>
